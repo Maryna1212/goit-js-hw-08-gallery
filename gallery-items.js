@@ -1,4 +1,4 @@
-const galleryItems = [
+export default [
   {
     preview:
       'https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg',
@@ -64,52 +64,3 @@ const galleryItems = [
   },
 ];
 
-const galleryContainer = document.querySelector('.js-gallery');
-const itemsMarkup = createGalleryItems(galleryItems);
-
-galleryContainer.insertAdjacentHTML('beforeend', itemsMarkup);
-
-galleryContainer.addEventListener('click', onGalleryContainerClick);
-
-
-function createGalleryItems(galleryItems) {
-  return galleryItems
-    .map(({ preview, original, description }) => {
-    return `
-     <li class="gallery__item">
-     <a
-      class="gallery__link"
-       href="${original}"
-     >
-     <img
-      class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-      />
-     </a>
-    </li>
-    `;
-  })
-    .join('');
-}
-
-function onGalleryContainerClick(evt) {
-  const isGalleryImageEl = evt.target.classlist.contains('gallery__image');
-  if (!isGalleryImageEl) {
-    return;
-  }
-
-  const currentActiveItem = document.querySelector('.gallery__item.is-active');
-
-  if (currentActiveItem) {
-    currentActiveItem.classlist.remove('is-active');
-  }
-
-  const imageEl = evt.target;
-  const parentGalleryItem = imageEl.closest('.gallery__item');
-
-  parentGalleryItem.classlist.add('is-active');
-
-  console.log(evt.target);
-}
